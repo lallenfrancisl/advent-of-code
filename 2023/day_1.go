@@ -1,6 +1,6 @@
 package main
 
-func Day_1(inp string) (int, int) {
+func Day1(inp string) (int, int) {
 	floor := 0
 	basementCharacterPos := 0
 
