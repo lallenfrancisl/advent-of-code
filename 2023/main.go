@@ -4,6 +4,7 @@ import "fmt"
 
 func main() {
 	runDay1()
+	runDay2()
 }
 
 func runDay1() {
@@ -1012,4 +1013,9 @@ func runDay1() {
 	`)
 
 	fmt.Printf("sum of all calibration values: %d\n", value)
+}
+
+func runDay2() {
+	fmt.Print("\nDay 2\n")
+	Day2()
 }
