@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/lallenfrancisl/advent-of-code/core"
+	"github.com/samber/lo"
 )
 
 const inputFilePath = "day_2_input.txt"
@@ -24,13 +25,38 @@ func Day2() {
 	currentBag := Bag{red: 12, green: 13, blue: 14}
 
 	sum := 0
+	minBagsForGames := []Bag{}
 	for _, game := range games {
 		if isGamePossible(game, &currentBag) {
 			sum += game.id
 		}
+
+		minBagsForGames = append(minBagsForGames, getMinNeededBag(game.bags))
 	}
 
 	fmt.Printf("Sum of possible game ids: %d\n", sum)
+
+	sumOfBagPowers := 0
+
+	for _, bag := range minBagsForGames {
+		sumOfBagPowers += bag.red * bag.blue * bag.green
+	}
+
+	fmt.Printf("Sum of powers: %d\n", sumOfBagPowers)
+}
+
+func getMinNeededBag(bags []Bag) Bag {
+	minBag := Bag{}
+
+	reds := lo.Map(bags, func(bag Bag, _ int) int { return bag.red })
+	greens := lo.Map(bags, func(bag Bag, _ int) int { return bag.green })
+	blues := lo.Map(bags, func(bag Bag, _ int) int { return bag.blue })
+
+	minBag.red = lo.Max(reds)
+	minBag.green = lo.Max(greens)
+	minBag.blue = lo.Max(blues)
+
+	return minBag
 }
 
 func isGamePossible(game Game, bag *Bag) bool {
